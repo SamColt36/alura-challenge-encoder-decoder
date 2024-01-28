@@ -31,11 +31,14 @@
 	<script type="module" src="./scripts/jquery-3.7.1.min.js"></script>
 	<script type="module" src="./scripts/dom.js"></script>
 	<script type="module" src="./scripts/modify-attributes-svg.js"></script>
-	<script type="module" src="./scripts/main.js"></script>
+	<script type="module" src="./scripts/encode-decode.js"></script>
+	<script type="module" src="./scripts/clear-textarea.js"></script>
+	<script type="module" src="./scripts/validate-user-input.js"></script>
+	<script type="module" src="./scripts/copy-text.js"></script>
 </head>
 
 <body
-	class="h-screen min-w-72 shrink flex flex-col bg-color-background space-y-6 xl:p-10 xl:flex-row xl:space-x-24 xl:space-y-0">
+	class="h-screen min-w-72 max-w-7xl mx-auto shrink flex flex-col bg-color-background space-y-6 xl:p-10 xl:flex-row xl:space-x-0 xl:space-y-0">
 	<header class="p-4 lg:p-10">
 		<figure class="*:h-8">
 			<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" viewBox="0 0 32 48">
@@ -47,8 +50,7 @@
 	<main
 		class="px-4 pt-20 inter flex flex-col space-y-4 flex-grow lg:px-10 lg:pt-32 lg:pb-20 lg:justify-between xl:pt-32 xl:pb-20 xl:justify-between">
 		<textarea name="UserMessage" id="UserMessage" placeholder="Digite seu texto"
-			class="placeholder:text-3xl placeholder:text-color-primary bg-color-background resize-none min-h-32 w-full border-none outline-none text-3xl text-color-primary selection:text-white selection:bg-color-primary"></textarea>
-
+			class="placeholder:text-lg text-lg lg:placeholder:text-2xl lg:sm:text-2xl xl:placeholder:text-3xl xl:text-3xl placeholder:text-color-primary bg-color-background resize-none min-h-32 w-full h-full outline-none text-color-primary selection:text-white selection:bg-color-primary"></textarea>
 		<div class="space-y-4">
 			<notice class="flex items-center">
 				<svg class="h-4 fill-color-auxiliary-text stroke-color-background stroke-2 lg:h-6" viewBox="0 0 24 24"
@@ -57,31 +59,42 @@
 					<line x1="12" y1="8" x2="12" y2="12" />
 					<line x1="12" y1="16" x2="12.01" y2="16" />
 				</svg>
-				<p class="text-xs lg:text-base">Apenas letras minúsculas e sem acento.</p>
+				<p class="text-xs lg:text-base" id="message">Apenas letras minúsculas e sem acento.</p>
 			</notice>
 
 			<section
-				class="flex flex-row justify-center space-x-2 *:basis-1/2 *:p-4 *:rounded-3xl *:text-center *:border *:max-w-96 lg:space-x-6 xl:space-x-6 xl:justify-start">
-				<button type="button" title="Criptografar"
-					class="bg-color-primary border-color-primary text-white cursor-no-drop"
+				class="*:border *:rounded-3xl *:text-sm flex flex-wrap space-y-2 *:basis-full md:*:basis-auto md:space-y-0 md:space-x-2 lg:*:basis-auto lg:space-y-0 lg:space-x-2 xl:*:basis-auto xl:space-y-0 xl:space-x-2">
+				<button type="button" title="Criptografar" id="encode"
+					class="p-4 min-w-32 bg-color-primary border-color-primary text-white cursor-no-drop hover:ring-1 hover:ring-offset-2 hover:ring-color-primary grow lg:max-w-64 xl:max-w-64"
 					disabled>Criptografar</button>
-				<button type="button" title="Decriptografar"
-					class="bg-color-background border-color-primary text-color-primary cursor-no-drop"
+				<button type="button" title="Decriptografar" id="decode"
+					class="p-4 min-w-32 bg-color-background border-color-primary text-color-primary cursor-no-drop hover:ring-1 hover:ring-offset-2 hover:ring-color-primary grow lg:max-w-64 xl:max-w-64"
 					disabled>Decriptografar</button>
+				<button type="button" class="p-2 relative flex justify-center border-none items-center"
+					id="container-trash">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+						stroke="currentColor" class="h-6" id="svg-trash">
+						<path id="trash">
+					</svg>
+				</button>
 			</section>
 		</div>
 	</main>
 
-	<section class="p-4 lg:p-10 flex xl:p-0 xl:max-w-80">
-		<div class="p-8 space-y-4 shadow-xl rounded-3xl bg-white flex flex-col justify-center basis-full md:p-10">
-			<figure class="hidden w-full select-none xl:block">
+	<section class="p-4 flex justify-center items-center lg:p-10 xl:p-0 xl:max-w-80">
+		<div
+			class="p-8 relative space-y-4 shadow-xl rounded-3xl bg-white flex flex-col justify-center items-center basis-full min-w-80 h-full md:p-10">
+			<figure class="hidden w-full select-none *:min-h-1/2 xl:block" id="figure">
 				<img src="./vectors/High quality products 1 1.svg"
 					alt="Imagem ilustrativa de uma pessoa sentada com uma lupa, observando um diamante">
 			</figure>
-			<h3 class="text-xl font-bold text-center md:text-2xl lg:text-2xl">Nenhuma mensagem encontrada</h3>
-			<p class="leading-7 text-center">Digite um texto que você deseja criptografar ou descriptografar.</p>
+			<h3 class="text-xl font-bold text-center md:text-2xl lg:text-2xl" id="message-default">Nenhuma mensagem
+				encontrada</h3>
+			<p class="leading-7 text-center outline-none overflow-auto" id="modal">Digite um texto que você deseja criptografar ou
+				descriptografar.</p>
 			<button type="button" title="Copiar"
-				class="hidden bg-inherit border-color-primary text-color-primary p-4 my-96 rounded-3xl text-center border w-full">Copiar</button>
+				class="hidden bg-inherit border-color-primary text-color-primary p-2 w-min ml-auto my-96 rounded-xl text-center border"
+				id="copy">Copiar</button>
 		</div>
 	</section>
 </body>
