@@ -6,7 +6,9 @@ import {
   $encode,
   $modal,
   $copy,
-  $messageDefault
+  $messageDefault,
+  $imageMain,
+  $containerModal,
 } from "./dom.js";
 
 const logicToEncode = (str) => {
@@ -44,18 +46,22 @@ const decoding = (value) => {
 };
 
 const insertTextIntoModal = (message) => {
-  $modal.text(message).removeClass("text-center");
+  $modal.text(message);
   $copy.show();
+  $containerModal.removeClass("justify-center").addClass("justify-between");
   $messageDefault.hide();
+  $imageMain.hide();
 };
 
 const resetModal = () => {
-  $modal
-    .text("Digite um texto que você deseja criptografar ou descriptografar.")
-    .addClass("text-center");
+  $modal.text(
+    "Digite um texto que você deseja criptografar ou descriptografar."
+  );
   $copy.hide();
+  $containerModal.addClass("justify-center").removeClass("justify-between");
   $messageDefault.show();
   $userMessage.attr("data", "validation-false");
+  $imageMain.show();
 };
 
 $userMessage.blur(function (e) {

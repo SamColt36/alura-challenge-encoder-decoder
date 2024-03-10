@@ -11,6 +11,8 @@ const $containerTrash = $("#container-trash");
 const $modal = $("#modal");
 const $copy = $("#copy");
 const $messageDefault = $("#message-default");
+const $imageMain = $("#image-main");
+const $containerModal = $("#container-modal");
 
 export {
   $svgPath,
@@ -23,5 +25,7 @@ export {
   $containerTrash,
   $modal,
   $copy,
-  $messageDefault
+  $messageDefault,
+  $imageMain,
+  $containerModal,
 };
