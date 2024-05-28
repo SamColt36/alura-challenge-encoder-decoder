@@ -57,7 +57,7 @@ O projeto encontra-se em:
 
 ## 🌐 Acessar o projeto
 
-Acesse a última versão disponível pelo [link]()🔗.
+Acesse a última versão disponível pelo [link](https://alura-challenge-encoder-decoder.vercel.app/)🔗.
 
 ## 📂 Estrutura de diretórios
 
