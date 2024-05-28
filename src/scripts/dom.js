@@ -1,4 +1,5 @@
 "use strict";
+import $ from "jquery";
 
 const $svgPath = $("#path");
 const $userMessage = $("#UserMessage");

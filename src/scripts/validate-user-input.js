@@ -1,11 +1,12 @@
 "use strict";
+import $ from "jquery";
 
 import { $userMessage, $decode, $encode } from "./dom.js";
 
 const regex = /[A-Z|àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕ]/;
 
 const disableButtons = function () {
-  $(arguments).each(function (index, element) {
+  $(arguments).each(function (_, element) {
     element
       .attr("disabled", "disabled")
       .addClass("cursor-no-drop")
@@ -15,7 +16,7 @@ const disableButtons = function () {
 };
 
 const activateButtons = function () {
-  $(arguments).each(function (index, element) {
+  $(arguments).each(function (_, element) {
     element
       .removeAttr("disabled")
       .removeClass("cursor-no-drop")
